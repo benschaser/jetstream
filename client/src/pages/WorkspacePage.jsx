@@ -12,7 +12,8 @@ function WorkspacePage() {
   const selectedTabId = searchParams.get('workspace');
 
   React.useEffect(() => {
-    if (selectedTabId) setSearchParams({ workspace: 'dashboard'});
+    const validTabs = ['dashboard', 'editor', 'files', 'database'];
+    if (!selectedTabId || !validTabs.includes(selectedTabId)) setSearchParams({ workspace: 'dashboard'});
   }, [selectedTabId, setSearchParams]);
   return (
     <>

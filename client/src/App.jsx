@@ -1,24 +1,28 @@
 import * as React from 'react'
 import './App.css'
 import { Routes, Route, useNavigate, useSearchParams } from 'react-router-dom'
-import { Alignment, Navbar, NavbarGroup, NavbarHeading, NavbarDivider, Tabs, Tab, Button } from '@blueprintjs/core';
+import { Alignment, Navbar, NavbarGroup, NavbarHeading, NavbarDivider, Tabs, Tab, Button, Colors } from '@blueprintjs/core';
 import WorkspacePage from './pages/WorkspacePage'
 import AccountPage from './pages/AccountPage'
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedTabId = searchParams.get('workspace');
+  
   const navigate = useNavigate();
+  const navigateToWorkspace = (tabId) => {
+    navigate(`/?workspace=${tabId}`);
+  }
 
   return (
     <>
       <Navbar>
         <NavbarGroup>
-          <NavbarHeading style={{ fontWeight: 'bold' }}>Jetstream</NavbarHeading>
+          <NavbarHeading style={{ fontWeight: 'bold', color: Colors.GRAY1 }}>Jetstream</NavbarHeading>
         </NavbarGroup>
         <NavbarGroup>
           <NavbarDivider/>
-          <Tabs id="workspace-tabs" selectedTabId={selectedTabId} onClick={tabId => {navigate('/'); setSearchParams({ workspace: tabId }) }}>
+          <Tabs id="workspace-tabs" selectedTabId={selectedTabId} onChange={navigateToWorkspace}>
             <Tab id="dashboard" title="Dashboard" icon="home"/>
             <Tab id="editor" title="Editor" icon="cube-edit"/>
             <Tab id="files" title="Files" icon="folder-open"/>
